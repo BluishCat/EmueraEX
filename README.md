@@ -44,7 +44,7 @@ EmueraEX/
 │   ├─ emuera.em/     EvilMask/emuera.em (master)               ベース。patches を当てる対象
 │   └─ emuera.net/    alnatiyan/EmueraDotNet (BugFix_Test 固定)  移植元。読むだけ
 ├─ patches/           EM+EE に当てる統合パッチ（番号順に適用）
-├─ tools/             setup.ps1 / apply.ps1 / build.ps1 / install-to.ps1 / sync-android.ps1
+├─ tools/             setup.ps1 / apply.ps1 / build.ps1 / pack.ps1 / install-to.ps1 / sync-android.ps1
 ├─ docs/              engine-diff.md（両エンジンの差分一覧）
 └─ licenses/          上流のライセンス全文
 ```
@@ -73,6 +73,24 @@ exe の名前は `-Name` で変えられます。単一ファイルなので後�
 ```powershell
 .\tools\build.ps1 -Name Emuera.NET統合版
 ```
+
+## 配布物を作る
+
+```powershell
+.\tools\pack.ps1
+```
+
+`dist\EmueraEX-<版>.zip` が出ます（約 2.2MB）。中身は exe・導入手順（`README.txt`）・
+出典表示（`NOTICE.txt`）・`docs/`・`licenses/`・**`patches/`** です。
+patches を同梱するのは、zlib ライセンスが求める「改変した旨の明示」の本体が
+そこにあるためで、上流に当て直せば同じ exe を再現できます。
+
+`dist\SHA256SUMS.txt` も一緒に出ます。
+
+**リリースのたびに `Emuera.csproj` の `InformationalVersion` の `EXvN` を +1 してください。**
+zip 名と中の版表記はここから取っています。
+
+## 版表記
 
 画面右上に出る版表記は **`EmueraEX 1.824+v24+EMv18+EEv56+EXv1`** です。
 `EEv56` までがベースの EM+EE の版、`EXv1` が統合レイヤの版で、
