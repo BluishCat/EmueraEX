@@ -1,0 +1,5 @@
+# 上流は setup.ps1 で取得する。改変は patches/ に置く
+/upstream/
+/dist/
+/build.log
+/obj/
