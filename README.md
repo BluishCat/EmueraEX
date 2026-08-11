@@ -140,6 +140,7 @@ exe の直下に `ERB` が無く `Data\ERB` があれば自動で `Data\` を見
 | `12-gamepad-primitive-click` | 同じ画面で決定/キャンセルを**クリック**として送る。キーだけでは進まないゲームがあるため |
 | `13-gamepad-rightclick` | マウスの右クリックに当たるパッドボタン（既定 X）。テキストの飛ばし読みと、右クリック決定（`RESULT:1` に 2）に使う |
 | `14-version-text` | 画面右上の版表記を `EmueraEX 1.824+v24+EMv18+EEv56+EXv1` にする。git のコミットハッシュは付けない |
+| `15-div-unknown-attrs` | `<div>` の知らない属性名を読み飛ばす。.netEmuera は HTML パーサなので綴りの間違いを素通しし、その状態で配布されているゲームがある |
 
 ## 動作状況
 
