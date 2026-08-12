@@ -150,9 +150,13 @@ exe の直下に `ERB` が無く `Data\ERB` があれば自動で `Data\` を見
 |---|---|---|
 | eraTOWN 143.30 | EM+EE | ○ タイトル到達。素の EM+EE と描画差なし |
 | erablue_resort 0.108 | EM+EE | ○ タイトル到達。素の EM+EE と描画差なし |
-| ShinEraTenseiP 0.5.8 | .netEmuera | ○ タイトル到達。隊列表示（`FORMATION.ERB`）まで確認。原版の .netEmuera と同じ見た目 |
+| ShinEraTenseiP 0.5.8 | .netEmuera | ○ タイトル到達。隊列表示（`FORMATION.ERB`）まで確認。原版の .netEmuera とほぼ同じ見た目 |
 
 EM+EE 系2本は素の EM+EE と画面をピクセル比較し、差はバージョン文字列（コミットハッシュ）のみでした。
+
+ShinEraTenseiP は原版の .netEmuera と隊列表示をピクセル比較しました。中身・大きさ・色は同じで、
+入れ子の `<div>` で置いた要素（スキル行とキャラ画像）だけが 1px ずれます。
+`<div>` の入れ子まわり（パッチ05/08）由来で、16/17 とは別の話です。
 
 ## ゲームパッド
 
