@@ -92,8 +92,8 @@ zip 名と中の版表記はここから取っています。
 
 ## 版表記
 
-画面右上に出る版表記は **`EmueraEX 1.824+v24+EMv18+EEv56+EXv5`** です。
-`EEv56` までがベースの EM+EE の版、`EXv5` が統合レイヤの版で、
+画面右上に出る版表記は **`EmueraEX 1.824+v24+EMv18+EEv56+EXv6`** です。
+`EEv56` までがベースの EM+EE の版、`EXv6` が統合レイヤの版で、
 統合パッチを増やしたらここを上げます（`Emuera.csproj` の `InformationalVersion`）。
 名前そのものは `Runtime/Utils/Sys.cs` の `EmueraVersionText` です。
 
@@ -146,6 +146,9 @@ exe の直下に `ERB` が無く `Data\ERB` があれば自動で `Data\` を見
 | `18-font-size` | `<font size>` で文字の大きさを変えられるようにする。既定は設定フォントサイズに対する%、`px` を付ければピクセル指定 |
 | `19-img-xpos` | `<img xpos>` を受け取る。.netEmuera でも値を使うのは絶対配置のときだけなので、受け取って捨てる |
 | `20-div-in-button-click` | `<button><div>…</div></button>` で `<div>` の矩形をそのボタンの当たり判定にする。マウス／タップで枠を押して選べるようにする |
+| `21-div-in-button-click-nested` | 20 を入れ子でも効かせる。`<div><button><div>…</div></button></div>` のようにボタンが `<div>` の中に居る形（隊列表示や調教画面がこれ）で枠を押して選べるようにし、カーソルを乗せたときの色も変わるようにする |
+| `22-div-hitbox-rect` | `<div>` の当たり判定の矩形を描画に合わせる。枠（margin/border/padding）のぶん下にずれていたのを直し、大きさ省略時は中身の実寸まで広げる（行高を超える画像のはみ出した部分を押せるようにする） |
+| `23-html-island-hittest` | `HTML_PRINT_ISLAND` の中のボタンをクリックできるようにする。従来は描画されるだけで当たり判定に入っていなかった。あわせて `display='absolute-*'` の `<div>` の当たり判定を描画と同じ原点で出す |
 
 ## 動作状況
 
