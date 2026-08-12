@@ -92,8 +92,8 @@ zip 名と中の版表記はここから取っています。
 
 ## 版表記
 
-画面右上に出る版表記は **`EmueraEX 1.824+v24+EMv18+EEv56+EXv3`** です。
-`EEv56` までがベースの EM+EE の版、`EXv3` が統合レイヤの版で、
+画面右上に出る版表記は **`EmueraEX 1.824+v24+EMv18+EEv56+EXv4`** です。
+`EEv56` までがベースの EM+EE の版、`EXv4` が統合レイヤの版で、
 統合パッチを増やしたらここを上げます（`Emuera.csproj` の `InformationalVersion`）。
 名前そのものは `Runtime/Utils/Sys.cs` の `EmueraVersionText` です。
 
@@ -143,6 +143,8 @@ exe の直下に `ERB` が無く `Data\ERB` があれば自動で `Data\` を見
 | `15-div-unknown-attrs` | `<div>` の知らない属性名を読み飛ばす。.netEmuera は HTML パーサなので綴りの間違いを素通しし、その状態で配布されているゲームがある |
 | `16-html-bare-attr-values` | `<div xpos=850>` のような引用符の無い属性値を許す。HTML の規則どおり「空白か `>` まで」を値として読む。字句解析に渡す前に引用符を補うので、全タグに効く |
 | `17-div-in-button` | `<button>` / `<font>` の中で `<div>` を開けるようにする。.netEmuera では単に入れ子になるだけで、`<button><div>…</div></button>` を作るゲームがある |
+| `18-font-size` | `<font size>` で文字の大きさを変えられるようにする。既定は設定フォントサイズに対する%、`px` を付ければピクセル指定 |
+| `19-img-xpos` | `<img xpos>` を受け取る。.netEmuera でも値を使うのは絶対配置のときだけなので、受け取って捨てる |
 
 ## 動作状況
 
@@ -150,7 +152,7 @@ exe の直下に `ERB` が無く `Data\ERB` があれば自動で `Data\` を見
 |---|---|---|
 | eraTOWN 143.30 | EM+EE | ○ タイトル到達。素の EM+EE と描画差なし |
 | erablue_resort 0.108 | EM+EE | ○ タイトル到達。素の EM+EE と描画差なし |
-| ShinEraTenseiP 0.5.8 | .netEmuera | ○ タイトル到達。隊列表示（`FORMATION.ERB`）まで確認。原版の .netEmuera とほぼ同じ見た目 |
+| ShinEraTenseiP 0.5.8 | .netEmuera | ○ タイトル到達。隊列表示（`FORMATION.ERB`）とショップまで確認。原版の .netEmuera とほぼ同じ見た目 |
 
 EM+EE 系2本は素の EM+EE と画面をピクセル比較し、差はバージョン文字列（コミットハッシュ）のみでした。
 
