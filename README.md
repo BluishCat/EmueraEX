@@ -92,8 +92,8 @@ zip 名と中の版表記はここから取っています。
 
 ## 版表記
 
-画面右上に出る版表記は **`EmueraEX 1.824+v24+EMv18+EEv56+EXv4`** です。
-`EEv56` までがベースの EM+EE の版、`EXv4` が統合レイヤの版で、
+画面右上に出る版表記は **`EmueraEX 1.824+v24+EMv18+EEv56+EXv5`** です。
+`EEv56` までがベースの EM+EE の版、`EXv5` が統合レイヤの版で、
 統合パッチを増やしたらここを上げます（`Emuera.csproj` の `InformationalVersion`）。
 名前そのものは `Runtime/Utils/Sys.cs` の `EmueraVersionText` です。
 
@@ -145,6 +145,7 @@ exe の直下に `ERB` が無く `Data\ERB` があれば自動で `Data\` を見
 | `17-div-in-button` | `<button>` / `<font>` の中で `<div>` を開けるようにする。.netEmuera では単に入れ子になるだけで、`<button><div>…</div></button>` を作るゲームがある |
 | `18-font-size` | `<font size>` で文字の大きさを変えられるようにする。既定は設定フォントサイズに対する%、`px` を付ければピクセル指定 |
 | `19-img-xpos` | `<img xpos>` を受け取る。.netEmuera でも値を使うのは絶対配置のときだけなので、受け取って捨てる |
+| `20-div-in-button-click` | `<button><div>…</div></button>` で `<div>` の矩形をそのボタンの当たり判定にする。マウス／タップで枠を押して選べるようにする |
 
 ## 動作状況
 
