@@ -115,6 +115,16 @@ exe の直下に `ERB` が無く `Data\ERB` があれば自動で `Data\` を見
 .\dist\EmueraEX.exe --ExeDir "C:\era\eraTOWN"
 ```
 
+**`--ExeDir` は `ERB` があるフォルダを直接渡してください。**
+上の `Data\` の自動判別は exe を置いて起動したときだけのもので、`--ExeDir` を
+明示すると通りません（`Program.cs` の `ResolveGameDir` を経由しないため）。
+`Data\` 配置のバリアントでは `Data` まで含めて渡します。渡し先を間違えると
+タイトルバーが「フォルダなし」になって起動しません。
+
+```powershell
+.\dist\EmueraEX.exe --ExeDir "C:\era\ShinEraTenseiP\Data"
+```
+
 **注意**
 
 - .NET 10 のランタイム（Desktop 込み）が必要です。自己完結型ではありません
@@ -156,7 +166,7 @@ exe の直下に `ERB` が無く `Data\ERB` があれば自動で `Data\` を見
 |---|---|---|
 | eraTOWN 143.30 | EM+EE | ○ タイトル到達。素の EM+EE と描画差なし |
 | erablue_resort 0.108 | EM+EE | ○ タイトル到達。素の EM+EE と描画差なし |
-| ShinEraTenseiP 0.5.8 | .netEmuera | ○ タイトル到達。隊列表示（`FORMATION.ERB`）とショップまで確認。原版の .netEmuera とほぼ同じ見た目 |
+| ShinEraTenseiP 0.5.8 | .netEmuera | ○ チュートリアル戦闘まで確認。隊列表示（`FORMATION.ERB`）・ショップ・TALK の敵選択・悪魔会話が通る。原版の .netEmuera とほぼ同じ見た目 |
 
 EM+EE 系2本は素の EM+EE と画面をピクセル比較し、差はバージョン文字列（コミットハッシュ）のみでした。
 
