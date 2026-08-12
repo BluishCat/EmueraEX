@@ -1,6 +1,6 @@
-From f3aa674cbe881a90b1d37961504ed41ceb9e46a4 Mon Sep 17 00:00:00 2001
+From aaef3fae5e40628710dba0e43631349bff05dae0 Mon Sep 17 00:00:00 2001
 From: BluishCat <175175076+BluishCat@users.noreply.github.com>
-Date: Wed, 12 Aug 2026 13:14:01 +0900
+Date: Wed, 12 Aug 2026 13:24:20 +0900
 Subject: [PATCH] =?UTF-8?q?=E7=B5=B1=E5=90=88:=20<font=20size>=20=E3=82=92?=
  =?UTF-8?q?=E7=A7=BB=E6=A4=8D=E3=81=99=E3=82=8B?=
 MIME-Version: 1.0
@@ -17,52 +17,67 @@ ShinEraTenseiP のショップで <font size = '75'> に当たって停止して
 StringStyle.FontSize は「0 は未指定」にしてある。設定のフォントサイズは
 実行中に変わるので、生成時の値を写し取らないため。
 
+FontFactory は GetFont 本体に触らず多重定義を末尾に足す形にした。
+andEmuera の 10-android-portability が GetFont を丸ごと書き換えており、
+本体を変えると Android 側でパッチが当たらなくなるため。
+
 Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>
 ---
- Emuera/UI/FontFactory.cs              | 13 ++++----
+ Emuera/UI/FontFactory.cs              | 40 +++++++++++++++++++++++++
  Emuera/UI/Game/ConsoleStyledString.cs |  3 +-
  Emuera/UI/Game/HtmlManager.cs         | 43 +++++++++++++++++++++++++--
  Emuera/UI/Game/StringStyle.cs         | 18 ++++++++---
- 4 files changed, 64 insertions(+), 13 deletions(-)
+ 4 files changed, 96 insertions(+), 8 deletions(-)
 
 diff --git a/Emuera/UI/FontFactory.cs b/Emuera/UI/FontFactory.cs
-index 2dc2c32..86c7130 100644
+index 2dc2c32..967baac 100644
 --- a/Emuera/UI/FontFactory.cs
 +++ b/Emuera/UI/FontFactory.cs
-@@ -9,7 +9,8 @@ internal class FontFactory
- 
- 	static readonly Dictionary<(string fontname, int fontSize, FontStyle fontStyle), Font> fontDic = [];
- 
--	public static Font GetFont(string requestFontName, FontStyle style)
-+	//統合_netEmuera_fontサイズ: requestFontSize は <font size> 用。0以下なら設定のフォントサイズ
-+	public static Font GetFont(string requestFontName, FontStyle style, int requestFontSize = 0)
- 	{
- 		/*
- 		string fontname = requestFontName;
-@@ -46,17 +47,19 @@ internal class FontFactory
- 		string fn = requestFontName;
- 		if (string.IsNullOrEmpty(requestFontName))
- 			fn = Config.FontName;
--		if (!fontDic.ContainsKey((fn, Config.FontSize, style)))
-+		//統合_netEmuera_fontサイズ
-+		int requestedSize = requestFontSize > 0 ? requestFontSize : Config.FontSize;
-+		if (!fontDic.ContainsKey((fn, requestedSize, style)))
- 		{
--			var font = new Font(fn, Config.FontSize, style, GraphicsUnit.Pixel);
-+			var font = new Font(fn, requestedSize, style, GraphicsUnit.Pixel);
- 			if (font != null)
--				fontDic.Add((fn, Config.FontSize, style), font);
-+				fontDic.Add((fn, requestedSize, style), font);
- 
+@@ -90,4 +90,44 @@ internal class FontFactory
  		}
- 		Dictionary<FontStyle, Font> fontStyleDic = [];
- 		if (!fontStyleDic.ContainsKey(style))
- 		{
--			int fontsize = Config.FontSize;
-+			int fontsize = requestedSize;
- 			Font styledFont;
- 			try
- 			{
+ 		fontDic.Clear();
+ 	}
++
++	#region 統合_netEmuera_fontサイズ
++	/// <summary>
++	/// &lt;font size&gt; で大きさが指定されたとき用。既定の大きさなら従来の GetFont に回す。
++	/// GetFont 本体は andEmuera 側が丸ごと書き換えているので、そこには触らずここに足す
++	/// </summary>
++	public static Font GetFont(string requestFontName, FontStyle style, int requestFontSize)
++	{
++		if (requestFontSize <= 0 || requestFontSize == Config.FontSize)
++			return GetFont(requestFontName, style);
++		string fn = requestFontName;
++		if (string.IsNullOrEmpty(requestFontName))
++			fn = Config.FontName;
++		var key = (fn, requestFontSize, style);
++		if (fontDic.TryGetValue(key, out var cached))
++			return cached;
++		Font sizedFont;
++		try
++		{
++			#region EE_フォントファイル対応
++			foreach (FontFamily ff in GlobalStatic.Pfc.Families)
++			{
++				if (ff.Name == fn)
++				{
++					sizedFont = new Font(ff, requestFontSize, style, GraphicsUnit.Pixel);
++					goto foundfont;
++				}
++			}
++			sizedFont = new Font(fn, requestFontSize, style, GraphicsUnit.Pixel);
++		}
++		catch
++		{
++			return null;
++		}
++	foundfont:
++		#endregion
++		fontDic.Add(key, sizedFont);
++		return sizedFont;
++	}
++	#endregion
+ }
 diff --git a/Emuera/UI/Game/ConsoleStyledString.cs b/Emuera/UI/Game/ConsoleStyledString.cs
 index bfe590d..1fa9a50 100644
 --- a/Emuera/UI/Game/ConsoleStyledString.cs
