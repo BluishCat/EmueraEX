@@ -92,8 +92,8 @@ zip 名と中の版表記はここから取っています。
 
 ## 版表記
 
-画面右上に出る版表記は **`EmueraEX 1.824+v24+EMv18+EEv56+EXv6`** です。
-`EEv56` までがベースの EM+EE の版、`EXv6` が統合レイヤの版で、
+画面右上に出る版表記は **`EmueraEX 1.824+v24+EMv18+EEv56+EXv7`** です。
+`EEv56` までがベースの EM+EE の版、`EXv7` が統合レイヤの版で、
 統合パッチを増やしたらここを上げます（`Emuera.csproj` の `InformationalVersion`）。
 名前そのものは `Runtime/Utils/Sys.cs` の `EmueraVersionText` です。
 
@@ -159,6 +159,7 @@ exe の直下に `ERB` が無く `Data\ERB` があれば自動で `Data\` を見
 | `21-div-in-button-click-nested` | 20 を入れ子でも効かせる。`<div><button><div>…</div></button></div>` のようにボタンが `<div>` の中に居る形（隊列表示や調教画面がこれ）で枠を押して選べるようにし、カーソルを乗せたときの色も変わるようにする |
 | `22-div-hitbox-rect` | `<div>` の当たり判定の矩形を描画に合わせる。枠（margin/border/padding）のぶん下にずれていたのを直し、大きさ省略時は中身の実寸まで広げる（行高を超える画像のはみ出した部分を押せるようにする） |
 | `23-html-island-hittest` | `HTML_PRINT_ISLAND` の中のボタンをクリックできるようにする。従来は描画されるだけで当たり判定に入っていなかった。あわせて `display='absolute-*'` の `<div>` の当たり判定を描画と同じ原点で出す |
+| `24-html-bare-lt` | タグにならない `<` を文字として出す。HTML の規則どおり「次が英字でも `/` でもなければタグではない」と見る。`[<]減` のような本文で解析が止まっていた（ShinEraTenseiP の調教画面がこれで開けなかった） |
 
 ## 動作状況
 
@@ -166,7 +167,7 @@ exe の直下に `ERB` が無く `Data\ERB` があれば自動で `Data\` を見
 |---|---|---|
 | eraTOWN 143.30 | EM+EE | ○ タイトル到達。素の EM+EE と描画差なし |
 | erablue_resort 0.108 | EM+EE | ○ タイトル到達。素の EM+EE と描画差なし |
-| ShinEraTenseiP 0.5.8 | .netEmuera | ○ チュートリアル戦闘まで確認。隊列表示（`FORMATION.ERB`）・ショップ・TALK の敵選択・悪魔会話が通る。原版の .netEmuera とほぼ同じ見た目 |
+| ShinEraTenseiP 0.5.8 | .netEmuera | ○ チュートリアル戦闘まで確認。隊列表示（`FORMATION.ERB`）・ショップ・TALK の敵選択・悪魔会話・調教画面（`USERCOM.ERB`）が通る。原版の .netEmuera とほぼ同じ見た目 |
 
 EM+EE 系2本は素の EM+EE と画面をピクセル比較し、差はバージョン文字列（コミットハッシュ）のみでした。
 
