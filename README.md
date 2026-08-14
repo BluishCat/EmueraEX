@@ -92,8 +92,8 @@ zip 名と中の版表記はここから取っています。
 
 ## 版表記
 
-画面右上に出る版表記は **`EmueraEX 1.824+v24+EMv18+EEv56+EXv11`** です。
-`EEv56` までがベースの EM+EE の版、`EXv11` が統合レイヤの版で、
+画面右上に出る版表記は **`EmueraEX 1.824+v24+EMv18+EEv56+EXv12`** です。
+`EEv56` までがベースの EM+EE の版、`EXv12` が統合レイヤの版で、
 統合パッチを増やしたらここを上げます（`Emuera.csproj` の `InformationalVersion`）。
 名前そのものは `Runtime/Utils/Sys.cs` の `EmueraVersionText` です。
 
@@ -167,6 +167,7 @@ exe の直下に `ERB` が無く `Data\ERB` があれば自動で `Data\` を見
 | `29-div-content-box` | `width`/`height` で書いた `<div>` を CSS どおり content-box として扱う（`padding`/`border` が中身を削らない）。`size`/`rect`（EM+EE の書き方）は従来どおり枠込み。幅ぴったりに作った確認ダイアログの文が1文字あふれて折り返し、下の行が箱の外で切れていた |
 | `30-gclear-unload` | `GCLEAR` を範囲指定版と同じ手順に揃える（描く前に `Load()`、塗ったあと `drawImgList` を落とす）。`BEGIN SHOP` とロードの直後に `GCREATE` した画像が外され、作り直しにきた `GCLEAR` が `NullReferenceException` で落ちていた |
 | `31-html-island-layers` | `HTML_PRINT_ISLAND` の第2引数（層）を効かせる。層ごとに持って小さい順に描き、当たり判定は手前から見る。`HTML_PRINT_ISLAND_CLEAR` も層を取る。従来は出した順に描いていたので、確認ダイアログ（99）の後に出す画面暗転（98）がダイアログの上に乗っていた |
+| `32-button-close-in-div` | 閉じ忘れた `<div>` の中に来た `</button>` を外側の階層へ繰り上げる。`<div>` の中身は別の解析状態で読むため子は親の `<button>` を知らず、`<button><div>…</button>` が「`</button>`の前に`<button>`がありません」で止まっていた（ラグの店のチケット画面）。HTML の規則どおり `<div>` を暗黙に閉じてから閉じる |
 
 ## 動作状況
 
@@ -174,7 +175,7 @@ exe の直下に `ERB` が無く `Data\ERB` があれば自動で `Data\` を見
 |---|---|---|
 | eraTOWN 143.30 | EM+EE | ○ タイトル到達。素の EM+EE と描画差なし |
 | erablue_resort 0.108 | EM+EE | ○ タイトル到達。素の EM+EE と描画差なし |
-| ShinEraTenseiP 0.5.8 | .netEmuera | ○ チュートリアル戦闘まで確認。隊列表示（`FORMATION.ERB`）・ショップ・TALK の敵選択・悪魔会話・調教画面（`USERCOM.ERB`）が通る。原版の .netEmuera とほぼ同じ見た目 |
+| ShinEraTenseiP 0.5.8 | .netEmuera | ○ チュートリアル戦闘まで確認。隊列表示（`FORMATION.ERB`）・ショップ・ラグの店のチケット画面（`RAG_SHOP奴隷交換.ERB`）・TALK の敵選択・悪魔会話・調教画面（`USERCOM.ERB`）が通る。原版の .netEmuera とほぼ同じ見た目 |
 
 EM+EE 系2本は素の EM+EE と画面をピクセル比較し、差はバージョン文字列（コミットハッシュ）のみでした。
 
