@@ -92,8 +92,8 @@ zip 名と中の版表記はここから取っています。
 
 ## 版表記
 
-画面右上に出る版表記は **`EmueraEX 1.824+v24+EMv18+EEv56+EXv8`** です。
-`EEv56` までがベースの EM+EE の版、`EXv8` が統合レイヤの版で、
+画面右上に出る版表記は **`EmueraEX 1.824+v24+EMv18+EEv56+EXv9`** です。
+`EEv56` までがベースの EM+EE の版、`EXv9` が統合レイヤの版で、
 統合パッチを増やしたらここを上げます（`Emuera.csproj` の `InformationalVersion`）。
 名前そのものは `Runtime/Utils/Sys.cs` の `EmueraVersionText` です。
 
@@ -164,6 +164,7 @@ exe の直下に `ERB` が無く `Data\ERB` があれば自動で `Data\` を見
 | `26-div-inherit-font-style` | `<div>` の中へ祖先の `<b>`/`<font>` の効果を持ち込む。.netEmuera は DOM を辿るのでスタイルが子へ渡る。`<b><font size='300'><div>…</div></b>` の中身が既定サイズ・既定色になっていた |
 | `27-html-island-div-draw` | `HTML_PRINT_ISLAND` の中の `<div>` を描く。島は奥行きごとの描画を通らず、`ConsoleButtonString` は `<div>` を読み飛ばすため、当たり判定にだけ入って画面に出ていなかった（画面暗転もエンカウント表示も `<div>` だけの島） |
 | `28-div-autosize-font-size` | 大きさ省略の `<div>` の自動サイズが `<font size>` の実寸を見るようにする。300% の文字が行高のぶんで切られ、上だけが出ていた |
+| `29-div-content-box` | `width`/`height` で書いた `<div>` を CSS どおり content-box として扱う（`padding`/`border` が中身を削らない）。`size`/`rect`（EM+EE の書き方）は従来どおり枠込み。幅ぴったりに作った確認ダイアログの文が1文字あふれて折り返し、下の行が箱の外で切れていた |
 
 ## 動作状況
 
