@@ -92,8 +92,8 @@ zip 名と中の版表記はここから取っています。
 
 ## 版表記
 
-画面右上に出る版表記は **`EmueraEX 1.824+v24+EMv18+EEv56+EXv7`** です。
-`EEv56` までがベースの EM+EE の版、`EXv7` が統合レイヤの版で、
+画面右上に出る版表記は **`EmueraEX 1.824+v24+EMv18+EEv56+EXv8`** です。
+`EEv56` までがベースの EM+EE の版、`EXv8` が統合レイヤの版で、
 統合パッチを増やしたらここを上げます（`Emuera.csproj` の `InformationalVersion`）。
 名前そのものは `Runtime/Utils/Sys.cs` の `EmueraVersionText` です。
 
@@ -160,6 +160,10 @@ exe の直下に `ERB` が無く `Data\ERB` があれば自動で `Data\` を見
 | `22-div-hitbox-rect` | `<div>` の当たり判定の矩形を描画に合わせる。枠（margin/border/padding）のぶん下にずれていたのを直し、大きさ省略時は中身の実寸まで広げる（行高を超える画像のはみ出した部分を押せるようにする） |
 | `23-html-island-hittest` | `HTML_PRINT_ISLAND` の中のボタンをクリックできるようにする。従来は描画されるだけで当たり判定に入っていなかった。あわせて `display='absolute-*'` の `<div>` の当たり判定を描画と同じ原点で出す |
 | `24-html-bare-lt` | タグにならない `<` を文字として出す。HTML の規則どおり「次が英字でも `/` でもなければタグではない」と見る。`[<]減` のような本文で解析が止まっていた（ShinEraTenseiP の調教画面がこれで開けなかった） |
+| `25-html-lenient-close-tags` | 対応する開始タグの無い終了タグを読み飛ばし、閉じ忘れた `<b>`/`<font>` は末尾で自動的に閉じる。HTML の規則どおり。`<font size='300'>` を `</fontsize>` で閉じているゲームがある（ShinEraTenseiP のエンカウント表示がこれで止まっていた） |
+| `26-div-inherit-font-style` | `<div>` の中へ祖先の `<b>`/`<font>` の効果を持ち込む。.netEmuera は DOM を辿るのでスタイルが子へ渡る。`<b><font size='300'><div>…</div></b>` の中身が既定サイズ・既定色になっていた |
+| `27-html-island-div-draw` | `HTML_PRINT_ISLAND` の中の `<div>` を描く。島は奥行きごとの描画を通らず、`ConsoleButtonString` は `<div>` を読み飛ばすため、当たり判定にだけ入って画面に出ていなかった（画面暗転もエンカウント表示も `<div>` だけの島） |
+| `28-div-autosize-font-size` | 大きさ省略の `<div>` の自動サイズが `<font size>` の実寸を見るようにする。300% の文字が行高のぶんで切られ、上だけが出ていた |
 
 ## 動作状況
 
