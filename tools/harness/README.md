@@ -33,6 +33,14 @@ dotnet build 'X:\era\andEmuera\src\Emuera.TestHarness\Emuera.TestHarness.csproj'
 1コマンドごとに `/status` の `generation` 更新を待ち、`error` が立った時点で止まる。
 画面は `/screen.png` から取る。
 
+**取りこぼしに見えて違うもの**（巡回で毎回引っかかる）:
+
+- `HTML_PRINT` のあとに `WAIT` を置く画面が多い。`generation` は WAIT の描画で先に動くので、
+  次のコマンドが**メニューではなく WAIT に吸われる**。「ボタンを押したのに戻らない」の大半はこれ。
+  もう一度同じキーを送れば通る。切り分けるときは 1 コマンドずつ送って毎回撮ること。
+- ショップ一覧のような `ONEINPUT` の画面に `submit:107` を送ると**先頭の 1 文字だけ**が入る。
+  複数桁のコマンドはメインメニュー側の画面でしか通らない。
+
 **致命エラーの見分け方**: `/status` の `error` が true になり、ゲームフォルダの `emuera.log` が
 **そのたびに書き直される**（`EmueraConsole.RunEmueraProgram` が Error 状態で `OutputSystemLog` を呼ぶ）。
 逆に言えば `emuera.log` の更新時刻が最後に落ちた時刻で、古いままなら以降は落ちていない。

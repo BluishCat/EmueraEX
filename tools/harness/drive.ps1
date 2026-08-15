@@ -39,8 +39,17 @@ if (-not $NoResize) {
 }
 
 foreach ($c in $Cmds) {
-    $before = (Get-Status).generation
     $name, $arg = $c -split ':', 2
+
+    # wait は画面更新を待たない。switch の中の continue は switch を抜けるだけで
+    # foreach の次の周には行かないため、ここで先に捌く
+    if ($name -eq 'wait') {
+        Start-Sleep -Seconds ([int]$arg)
+        Write-Output ("{0,-16} sleep {1}s" -f $c, $arg)
+        continue
+    }
+
+    $before = (Get-Status).generation
 
     switch ($name) {
         'submit' { Send-Json @{ t = 'submit'; v = "$arg" } }
@@ -51,7 +60,6 @@ foreach ($c in $Cmds) {
         'move'   { $xy = $arg -split ','; Send-Json @{ t = 'move'; x = [int]$xy[0]; y = [int]$xy[1] } }
         'scroll' { Send-Json @{ t = 'scrollLines'; n = [int]$arg; x = [int]($W / 2); y = [int]($H / 2) } }
         'latest' { Send-Json @{ t = 'latest' } }
-        'wait'   { Start-Sleep -Seconds ([int]$arg); Write-Output "wait $arg"; continue }
         default  { throw "unknown command: $c" }
     }
 
