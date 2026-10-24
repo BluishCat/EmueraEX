@@ -92,8 +92,8 @@ zip 名と中の版表記はここから取っています。
 
 ## 版表記
 
-画面右上に出る版表記は **`EmueraEX 1.824+v24+EMv18+EEv56+EXv13`** です。
-`EEv56` までがベースの EM+EE の版、`EXv13` が統合レイヤの版で、
+画面右上に出る版表記は **`EmueraEX 1.824+v24+EMv18+EEv56+EXv14`** です。
+`EEv56` までがベースの EM+EE の版、`EXv14` が統合レイヤの版で、
 統合パッチを増やしたらここを上げます（`Emuera.csproj` の `InformationalVersion`）。
 名前そのものは `Runtime/Utils/Sys.cs` の `EmueraVersionText` です。
 
@@ -172,6 +172,7 @@ exe の直下に `ERB` が無く `Data\ERB` があれば自動で `Data\` を見
 | `31-html-island-layers` | `HTML_PRINT_ISLAND` の第2引数（層）を効かせる。層ごとに持って小さい順に描き、当たり判定は手前から見る。`HTML_PRINT_ISLAND_CLEAR` も層を取る。従来は出した順に描いていたので、確認ダイアログ（99）の後に出す画面暗転（98）がダイアログの上に乗っていた |
 | `32-button-close-in-div` | 閉じ忘れた `<div>` の中に来た `</button>` を外側の階層へ繰り上げる。`<div>` の中身は別の解析状態で読むため子は親の `<button>` を知らず、`<button><div>…</button>` が「`</button>`の前に`<button>`がありません」で止まっていた（ラグの店のチケット画面）。HTML の規則どおり `<div>` を暗黙に閉じてから閉じる |
 | `33-inputmousekey-button-value` | `INPUTMOUSEKEY` で押したボタンの値を、.netEmuera と同じく「整数なら `RESULT:5`、文字列なら `RESULTS:5`」に入れる。EM+EE は文字列を `RESULTS`（添字0）にしか入れておらず、`RESULTS:5` を読むゲームで**ボタンの左クリックが効かなかった**（ラグの店の選択が右クリックでしか進まない） |
+| `36-sqlite-cve-2025-6965` | `SQL_*` 用に同梱する SQLite を 3.46.1 から 3.54.0 に上げる（`SQLitePCLRaw.bundle_e_sqlite3` 2.1.14 を直接参照）。3.50.2 より前の SQLite は集約の項目数が列数を超えるとメモリが壊れる（CVE-2025-6965 / GHSA-2m69-gcr7-jv3q、重大度: 高）。34・35 は andEmuera 側の patches/ で使っている番号なので飛ばしている (sync-android.ps1 で上書きしないため) |
 
 ## 動作状況
 
@@ -237,6 +238,7 @@ era 系は「数字を打つかボタンをクリックする」しか無いた�
 `LOADDATA`/`LOADGAME` 時に書き戻されます。起動時に `temp_db` は作り直されるので、
 セーブせずに終了した変更は残りません。
 
+SQLite は 3.54.0 です（EXv13 までは 3.46.1 で、CVE-2025-6965 に当たっていました）。
 SQLite 一式（`Microsoft.Data.Sqlite.dll` / `SQLitePCLRaw.*.dll` / ネイティブの `e_sqlite3.dll`）は
 `EmueraEX.exe` に同梱されているので、別途置く必要はありません。
 
