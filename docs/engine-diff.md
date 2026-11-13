@@ -10,7 +10,7 @@
 | | Emuera.EM+EE | Emuera.NET（.netEmuera） |
 |---|---|---|
 | リポジトリ | `gitlab.com/EvilMask/emuera.em` master | `gitlab.com/alnatiyan/EmueraDotNet` **BugFix_Test** |
-| 版 | 1.824+v24+EMv18+EEv56 | 0.2.6.0 `7b7dd3bf`（ShinEraTenseiP 同梱の実物） |
+| 版 | 1.824+v24+EMv18+EEv57 | 0.2.6.0 `7b7dd3bf`（ShinEraTenseiP 同梱の実物） |
 | 由来 | 2018〜。Enter 氏 588 commits / EvilMask 氏 204 commits | 2024-04 に EM+EE から分岐（VVII 氏 → alnatiyan 氏） |
 | TFM | net10.0-windows | net9.0-windows7.0 |
 | 描画 | WinForms + TextRenderer | SkiaSharp |
