@@ -92,8 +92,8 @@ zip 名と中の版表記はここから取っています。
 
 ## 版表記
 
-画面右上に出る版表記は **`EmueraEX 1.824+v24+EMv18+EEv56+EXv14`** です。
-`EEv56` までがベースの EM+EE の版、`EXv14` が統合レイヤの版で、
+画面右上に出る版表記は **`EmueraEX 1.824+v24+EMv18+EEv57+EXv15`** です。
+`EEv57` までがベースの EM+EE の版、`EXv15` が統合レイヤの版で、
 統合パッチを増やしたらここを上げます（`Emuera.csproj` の `InformationalVersion`）。
 名前そのものは `Runtime/Utils/Sys.cs` の `EmueraVersionText` です。
 
@@ -152,7 +152,7 @@ exe の直下に `ERB` が無く `Data\ERB` があれば自動で `Data\` を見
 | `11-gamepad-primitive-key` | `INPUTMOUSEKEY` など生の入力を待っている画面で、パッドの十字キーを矢印キーとして渡す |
 | `12-gamepad-primitive-click` | 同じ画面で決定/キャンセルを**クリック**として送る。キーだけでは進まないゲームがあるため |
 | `13-gamepad-rightclick` | マウスの右クリックに当たるパッドボタン（既定 X）。テキストの飛ばし読みと、右クリック決定（`RESULT:1` に 2）に使う |
-| `14-version-text` | 画面右上の版表記を `EmueraEX 1.824+v24+EMv18+EEv56+EXvN` にする。git のコミットハッシュは付けない |
+| `14-version-text` | 画面右上の版表記を `EmueraEX 1.824+v24+EMv18+EEv57+EXvN` にする。git のコミットハッシュは付けない |
 | `15-div-unknown-attrs` | `<div>` の知らない属性名を読み飛ばす。.netEmuera は HTML パーサなので綴りの間違いを素通しし、その状態で配布されているゲームがある |
 | `16-html-bare-attr-values` | `<div xpos=850>` のような引用符の無い属性値を許す。HTML の規則どおり「空白か `>` まで」を値として読む。字句解析に渡す前に引用符を補うので、全タグに効く |
 | `17-div-in-button` | `<button>` / `<font>` の中で `<div>` を開けるようにする。.netEmuera では単に入れ子になるだけで、`<button><div>…</div></button>` を作るゲームがある |
